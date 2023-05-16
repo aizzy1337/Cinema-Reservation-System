@@ -36,6 +36,8 @@
             this.dateForwardButton = new System.Windows.Forms.Button();
             this.moviePickLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.moviesShowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.roomLabel = new System.Windows.Forms.Label();
+            this.seatsPickLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.dateLayoutPanel.SuspendLayout();
             this.moviesShowLayoutPanel.SuspendLayout();
             this.SuspendLayout();
@@ -137,16 +139,36 @@
             this.moviesShowLayoutPanel.Size = new System.Drawing.Size(1257, 540);
             this.moviesShowLayoutPanel.TabIndex = 4;
             // 
+            // roomLabel
+            // 
+            this.roomLabel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.roomLabel.Font = new System.Drawing.Font("Roboto Black", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.roomLabel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.roomLabel.Location = new System.Drawing.Point(0, 0);
+            this.roomLabel.Name = "roomLabel";
+            this.roomLabel.Size = new System.Drawing.Size(1257, 80);
+            this.roomLabel.TabIndex = 2;
+            this.roomLabel.Text = "SALA";
+            this.roomLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // seatsPickLayoutPanel
+            // 
+            this.seatsPickLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seatsPickLayoutPanel.Location = new System.Drawing.Point(0, 80);
+            this.seatsPickLayoutPanel.Name = "seatsPickLayoutPanel";
+            this.seatsPickLayoutPanel.Padding = new System.Windows.Forms.Padding(20);
+            this.seatsPickLayoutPanel.Size = new System.Drawing.Size(1257, 570);
+            this.seatsPickLayoutPanel.TabIndex = 3;
+            // 
             // mainApplication
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(1257, 690);
-            this.Controls.Add(this.moviesShowLayoutPanel);
-            this.Controls.Add(this.dateLayoutPanel);
+            this.Controls.Add(this.seatsPickLayoutPanel);
             this.Controls.Add(this.administratorLoginLabel);
-            this.Controls.Add(this.repertuarLabel);
+            this.Controls.Add(this.roomLabel);
             this.Font = new System.Drawing.Font("Roboto", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(5);
@@ -169,5 +191,7 @@
         private Button dateForwardButton;
         private FlowLayoutPanel moviePickLayoutPanel;
         private FlowLayoutPanel moviesShowLayoutPanel;
+        private Label roomLabel;
+        private FlowLayoutPanel seatsPickLayoutPanel;
     }
 }

@@ -58,5 +58,32 @@ namespace SQLServer_LiteDB_WinForms_LearningProject
 
             return tempList;
         }
+
+        public static moviePicture getPictureByMovieId(int movieId)
+        {
+            moviePicture tempMovie = new moviePicture();
+
+            using (var connection = new LiteDatabase(DatabaseConnectionHelper.connectionString("LiteDB_Pictures")))
+            {
+                var image = connection.FileStorage.FindById(movieId.ToString());
+                Stream imageStream = new MemoryStream();
+
+                image.CopyTo(imageStream);
+                tempMovie = new moviePicture { id = Int32.Parse(image.Id), poster = Image.FromStream(imageStream) };
+            }
+
+            return tempMovie;
+        }
+
+        public static Movie getMovieByScreeningId(int screeningId)
+        {
+            using (var connection = new SqlConnection(DatabaseConnectionHelper.connectionString("SQLServer")))
+            {
+
+                return connection.QueryFirst<Movie>("dbo.getMovieByScreeningId @screening_id", new { screening_id = screeningId });
+
+            }
+        }
     }
 }
+
