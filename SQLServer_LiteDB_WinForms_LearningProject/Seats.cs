@@ -39,5 +39,27 @@ namespace SQLServer_LiteDB_WinForms_LearningProject
 
             }
         }
+
+        public static void insertSeats(int roomId, int numberOfSeats, int numberOfRows, int numberOfSeatsInOneRow)
+        {
+            using (var connection = new SqlConnection(DatabaseConnectionHelper.connectionString("SQLServer")))
+            {
+                int stop = 1;
+
+                for (int i = 1; i <= numberOfRows; i++)
+                {
+                    for (int j = 1; j <= numberOfSeatsInOneRow; j++)
+                    {
+                        if (stop <= numberOfSeats)
+                        {
+                            connection.Query("dbo.seatsInsert @row, @number, @room_id", new { row = i, number = stop, room_id = roomId });
+                        }
+                        else break;
+                        stop++;
+                    }
+                }
+
+            }
+        }
     }
 }

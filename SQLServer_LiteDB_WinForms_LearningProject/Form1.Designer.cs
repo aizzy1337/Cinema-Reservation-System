@@ -38,6 +38,14 @@
             this.moviesShowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.roomLabel = new System.Windows.Forms.Label();
             this.seatsPickLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.confirmSeatsButton = new System.Windows.Forms.Button();
+            this.confirmReservationLabel = new System.Windows.Forms.Label();
+            this.confirmMovieLabel = new System.Windows.Forms.Label();
+            this.confirmSeatsLabel = new System.Windows.Forms.Label();
+            this._confirmMovieLabel = new System.Windows.Forms.Label();
+            this._confirmSeatsLabel = new System.Windows.Forms.Label();
+            this.paidCheckBox = new System.Windows.Forms.CheckBox();
+            this.confirmReservationButton = new System.Windows.Forms.Button();
             this.dateLayoutPanel.SuspendLayout();
             this.moviesShowLayoutPanel.SuspendLayout();
             this.SuspendLayout();
@@ -153,12 +161,106 @@
             // 
             // seatsPickLayoutPanel
             // 
-            this.seatsPickLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seatsPickLayoutPanel.Location = new System.Drawing.Point(0, 80);
+            this.seatsPickLayoutPanel.Location = new System.Drawing.Point(63, 74);
             this.seatsPickLayoutPanel.Name = "seatsPickLayoutPanel";
-            this.seatsPickLayoutPanel.Padding = new System.Windows.Forms.Padding(20);
-            this.seatsPickLayoutPanel.Size = new System.Drawing.Size(1257, 570);
+            this.seatsPickLayoutPanel.Padding = new System.Windows.Forms.Padding(10);
+            this.seatsPickLayoutPanel.Size = new System.Drawing.Size(800, 560);
             this.seatsPickLayoutPanel.TabIndex = 3;
+            // 
+            // confirmSeatsButton
+            // 
+            this.confirmSeatsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.confirmSeatsButton.Font = new System.Drawing.Font("Roboto Medium", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.confirmSeatsButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.confirmSeatsButton.Location = new System.Drawing.Point(989, 334);
+            this.confirmSeatsButton.Name = "confirmSeatsButton";
+            this.confirmSeatsButton.Size = new System.Drawing.Size(155, 65);
+            this.confirmSeatsButton.TabIndex = 4;
+            this.confirmSeatsButton.Text = "Wybierz miejsca";
+            this.confirmSeatsButton.UseVisualStyleBackColor = true;
+            this.confirmSeatsButton.Click += new System.EventHandler(this.confirmSeatsButton_Click);
+            // 
+            // confirmReservationLabel
+            // 
+            this.confirmReservationLabel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.confirmReservationLabel.Font = new System.Drawing.Font("Roboto Black", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.confirmReservationLabel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.confirmReservationLabel.Location = new System.Drawing.Point(0, 0);
+            this.confirmReservationLabel.Name = "confirmReservationLabel";
+            this.confirmReservationLabel.Size = new System.Drawing.Size(1257, 80);
+            this.confirmReservationLabel.TabIndex = 3;
+            this.confirmReservationLabel.Text = "POTWIERDZENIE REZERWACJI";
+            this.confirmReservationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // confirmMovieLabel
+            // 
+            this.confirmMovieLabel.Font = new System.Drawing.Font("Roboto Medium", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.confirmMovieLabel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.confirmMovieLabel.Location = new System.Drawing.Point(0, 153);
+            this.confirmMovieLabel.Name = "confirmMovieLabel";
+            this.confirmMovieLabel.Size = new System.Drawing.Size(620, 28);
+            this.confirmMovieLabel.TabIndex = 4;
+            this.confirmMovieLabel.Text = "Tytuł filmu: ";
+            this.confirmMovieLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // confirmSeatsLabel
+            // 
+            this.confirmSeatsLabel.Font = new System.Drawing.Font("Roboto Medium", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.confirmSeatsLabel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.confirmSeatsLabel.Location = new System.Drawing.Point(0, 211);
+            this.confirmSeatsLabel.Name = "confirmSeatsLabel";
+            this.confirmSeatsLabel.Size = new System.Drawing.Size(620, 28);
+            this.confirmSeatsLabel.TabIndex = 5;
+            this.confirmSeatsLabel.Text = "Wybrane miejsca: ";
+            this.confirmSeatsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // _confirmMovieLabel
+            // 
+            this._confirmMovieLabel.Font = new System.Drawing.Font("Roboto Medium", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this._confirmMovieLabel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this._confirmMovieLabel.Location = new System.Drawing.Point(626, 153);
+            this._confirmMovieLabel.Name = "_confirmMovieLabel";
+            this._confirmMovieLabel.Size = new System.Drawing.Size(631, 28);
+            this._confirmMovieLabel.TabIndex = 6;
+            this._confirmMovieLabel.Text = "TYTUŁ";
+            this._confirmMovieLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // _confirmSeatsLabel
+            // 
+            this._confirmSeatsLabel.Font = new System.Drawing.Font("Roboto Medium", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this._confirmSeatsLabel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this._confirmSeatsLabel.Location = new System.Drawing.Point(626, 211);
+            this._confirmSeatsLabel.Name = "_confirmSeatsLabel";
+            this._confirmSeatsLabel.Size = new System.Drawing.Size(631, 28);
+            this._confirmSeatsLabel.TabIndex = 7;
+            this._confirmSeatsLabel.Text = "12, 14, 15";
+            this._confirmSeatsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // paidCheckBox
+            // 
+            this.paidCheckBox.AutoSize = true;
+            this.paidCheckBox.Font = new System.Drawing.Font("Roboto Medium", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.paidCheckBox.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.paidCheckBox.Location = new System.Drawing.Point(529, 271);
+            this.paidCheckBox.Name = "paidCheckBox";
+            this.paidCheckBox.Size = new System.Drawing.Size(187, 27);
+            this.paidCheckBox.TabIndex = 8;
+            this.paidCheckBox.Text = "Płatność online?";
+            this.paidCheckBox.UseVisualStyleBackColor = true;
+            this.paidCheckBox.CheckedChanged += new System.EventHandler(this.paidCheckBox_CheckedChanged);
+            // 
+            // confirmReservationButton
+            // 
+            this.confirmReservationButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.confirmReservationButton.Font = new System.Drawing.Font("Roboto Medium", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.confirmReservationButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.confirmReservationButton.Location = new System.Drawing.Point(466, 377);
+            this.confirmReservationButton.Name = "confirmReservationButton";
+            this.confirmReservationButton.Size = new System.Drawing.Size(323, 103);
+            this.confirmReservationButton.TabIndex = 9;
+            this.confirmReservationButton.Text = "ZAREZERWUJ";
+            this.confirmReservationButton.UseVisualStyleBackColor = true;
+            this.confirmReservationButton.Click += new System.EventHandler(this.confirmReservationButton_Click);
             // 
             // mainApplication
             // 
@@ -166,18 +268,26 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(1257, 690);
-            this.Controls.Add(this.seatsPickLayoutPanel);
+           // this.Controls.Add(this.confirmReservationButton);
+            //this.Controls.Add(this.paidCheckBox);
+            //this.Controls.Add(this._confirmSeatsLabel);
+            //this.Controls.Add(this._confirmMovieLabel);
+            //this.Controls.Add(this.confirmSeatsLabel);
+            //this.Controls.Add(this.confirmMovieLabel);
+            //this.Controls.Add(this.confirmReservationLabel);
+            this.Controls.Add(this.moviesShowLayoutPanel);
+            this.Controls.Add(this.dateLayoutPanel);
+            this.Controls.Add(this.repertuarLabel);
             this.Controls.Add(this.administratorLoginLabel);
-            this.Controls.Add(this.roomLabel);
             this.Font = new System.Drawing.Font("Roboto", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "mainApplication";
-            this.Text = "Kino XYZ";
             this.dateLayoutPanel.ResumeLayout(false);
             this.dateLayoutPanel.PerformLayout();
             this.moviesShowLayoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -193,5 +303,13 @@
         private FlowLayoutPanel moviesShowLayoutPanel;
         private Label roomLabel;
         private FlowLayoutPanel seatsPickLayoutPanel;
+        private Button confirmSeatsButton;
+        private Label confirmReservationLabel;
+        private Label confirmMovieLabel;
+        private Label confirmSeatsLabel;
+        private Label _confirmMovieLabel;
+        private Label _confirmSeatsLabel;
+        private CheckBox paidCheckBox;
+        private Button confirmReservationButton;
     }
 }

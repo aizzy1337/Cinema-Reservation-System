@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +37,16 @@ namespace SQLServer_LiteDB_WinForms_LearningProject
             {
 
                 return connection.Query<Seats_Reserved>("dbo.getReservedSeatsByScreeningId @screening_id", new { screening_id = screeningId }).ToList();
+
+            }
+        }
+
+        public static void insertReservedSeats(int seatID, int reservationID, int screeningID)
+        {
+            using (var connection = new SqlConnection(DatabaseConnectionHelper.connectionString("SQLServer")))
+            {
+
+                connection.Query("dbo.seats_reservedInsert @seat_id, @reservation_id, @screening_id", new { seat_id = seatID, reservation_id = reservationID, screening_id = screeningID });
 
             }
         }

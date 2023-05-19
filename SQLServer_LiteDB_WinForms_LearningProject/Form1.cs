@@ -1,10 +1,14 @@
+using Microsoft.VisualBasic.Devices;
 using System.Drawing.Printing;
 using static System.Reflection.Metadata.BlobBuilder;
 
 namespace SQLServer_LiteDB_WinForms_LearningProject
 {
     public partial class mainApplication : Form
-       { 
+       {
+
+        private List<int> seatsReservedByUser = new List<int>();
+        private int reservationInfo = 0;
 
         public mainApplication()
         {
@@ -21,8 +25,11 @@ namespace SQLServer_LiteDB_WinForms_LearningProject
 
         private void dateBackwardButton_Click(object sender, EventArgs e)
         {
-            dateLabel.Text = DateTime.Parse(dateLabel.Text).AddDays(-1).ToString("dd/MM/yyyy");
-            showMovies();
+            if (DateTime.Parse(dateLabel.Text).AddDays(-1) > DateTime.Now.AddDays(-1))
+            {
+                dateLabel.Text = DateTime.Parse(dateLabel.Text).AddDays(-1).ToString("dd/MM/yyyy");
+                showMovies();
+            }
         }
 
         private void showMovies()
@@ -175,14 +182,169 @@ namespace SQLServer_LiteDB_WinForms_LearningProject
             this.Controls.Remove(moviesShowLayoutPanel);
 
             this.Controls.Add(roomLabel);
-            var room = roomData.getRoomByScreeningId(Int32.Parse(button.Name.ToString()));
-            roomLabel.Text = room.name;
-            showSeats(room.id);
+            this.Controls.Add(seatsPickLayoutPanel);
+            this.Controls.Add(confirmSeatsButton);
+
+            reservationInfo = Int32.Parse(button.Name.ToString());
+            showSeats(Int32.Parse(button.Name.ToString()));
         }
 
-        private void showSeats(int roomId)
+        private void showSeats(int screeningID)
+        {
+            seatsPickLayoutPanel.Controls.Clear();
+            seatsReservedByUser.Clear();
+
+            var room = roomData.getRoomByScreeningId(screeningID);
+            roomLabel.Text = room.name;
+
+            var seatsList = seatsData.getSeatsByRoomId(room.id);
+            var reservedSeatsList = reservedSeatsData.getReservedSeatsByScreeningId(screeningID);
+
+            int rowCount = 1;
+            int seatsInOneRow = -1;
+            int row = seatsList[0].row;
+
+            foreach (var seats in seatsList)
+            {
+                if(row == seatsList[0].row)
+                {
+                    seatsInOneRow++;
+                }
+
+                if (row < seats.row)
+                {
+                    rowCount++;
+                    row = seats.row;
+                }
+            }
+
+            int buttonWidth = (780 / seatsInOneRow) - 20;
+            int buttonHeight = (540 / rowCount) - 20;
+
+            foreach (var seat in seatsList)
+            {
+                var button = new System.Windows.Forms.Button();
+
+                button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+                button.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+                button.ForeColor = System.Drawing.Color.WhiteSmoke;
+
+                if (reservedSeatsList.Count > 0)
+                {
+                    if (reservedSeatsList.FindAll(x => x.seat_id == seat.id).Count > 0)
+                    {
+                        button.BackColor = System.Drawing.Color.Red;
+                    }
+                    else
+                    {
+                        button.BackColor = System.Drawing.Color.Green;
+                        button.Click += new System.EventHandler(pickSeatsButton_Click);
+                    }
+                }
+                else
+                {
+                    button.BackColor = System.Drawing.Color.Green;
+                    button.Click += new System.EventHandler(pickSeatsButton_Click);
+                }
+
+                button.Location = new System.Drawing.Point(0, 0);
+                button.Name = seat.id.ToString();
+                button.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
+                button.Text = seat.number.ToString();
+                button.UseVisualStyleBackColor = true;
+                button.Margin = new System.Windows.Forms.Padding(20, 20, 0, 0);
+
+                seatsPickLayoutPanel.Controls.Add(button);
+            }
+
+        }
+
+        void pickSeatsButton_Click(object sender, EventArgs e)
         {
 
+            Button button = (Button)sender;
+
+            if(button.BackColor == System.Drawing.Color.Green)
+            {
+                button.BackColor = System.Drawing.Color.Orange;
+                seatsReservedByUser.Add(Int32.Parse(button.Name));
+            }
+            else if(button.BackColor == System.Drawing.Color.Orange)
+            {
+                button.BackColor = System.Drawing.Color.Green;
+                seatsReservedByUser.Remove(Int32.Parse(button.Name));
+            }
+
+        }
+
+        private void confirmSeatsButton_Click(object sender, EventArgs e)
+        {
+            if (seatsReservedByUser.Count == 0)
+            {
+                MessageBox.Show("Nale¿y wybraæ miejsce");
+            }
+            else
+            {
+                this.Controls.Remove(roomLabel);
+                this.Controls.Remove(seatsPickLayoutPanel);
+                this.Controls.Remove(confirmSeatsButton);
+
+                showConfirmReservation();
+            }
+        }
+
+        void showConfirmReservation()
+        {
+            _confirmMovieLabel.Text = moviesData.getMovieByScreeningId(reservationInfo).title;
+            _confirmSeatsLabel.Text = "";
+            foreach (var item in seatsReservedByUser)
+            {
+                _confirmSeatsLabel.Text += item.ToString() + " ";
+            }
+
+            this.Controls.Add(confirmReservationLabel);
+            this.Controls.Add(confirmMovieLabel);
+            this.Controls.Add(_confirmMovieLabel);
+            this.Controls.Add(confirmSeatsLabel);
+            this.Controls.Add(_confirmSeatsLabel);
+            this.Controls.Add(paidCheckBox);
+            this.Controls.Add(confirmReservationButton);
+        }
+
+        private void paidCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void confirmReservationButton_Click(object sender, EventArgs e)
+        {
+            ReservationData.insertReservation(reservationInfo, 1, paidCheckBox.Checked ? 1 : 0, 1);
+
+            var reservations = ReservationData.getReservationsByScreeningID(reservationInfo);
+
+            foreach (var item in seatsReservedByUser)
+            {
+                reservedSeatsData.insertReservedSeats(item, reservations.Last().id, reservationInfo);
+            }
+
+            MessageBox.Show("Potwierdzono rezerwacjê nr " + reservations.Last().id);
+
+            this.Controls.Remove(confirmReservationLabel);
+            this.Controls.Remove(confirmMovieLabel);
+            this.Controls.Remove(_confirmMovieLabel);
+            this.Controls.Remove(confirmSeatsLabel);
+            this.Controls.Remove(_confirmSeatsLabel);
+            this.Controls.Remove(paidCheckBox);
+            this.Controls.Remove(confirmReservationButton);
+
+            this.Controls.Add(this.moviesShowLayoutPanel);
+            this.Controls.Add(this.dateLayoutPanel);
+            this.Controls.Add(this.repertuarLabel);
+
+            reservationInfo = 0;
+            seatsReservedByUser.Clear();
+
+            showMovies();
         }
     }
 }
