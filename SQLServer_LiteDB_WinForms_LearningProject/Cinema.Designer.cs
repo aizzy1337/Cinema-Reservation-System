@@ -74,6 +74,7 @@
             this.administratorLoginLabel.TabIndex = 1;
             this.administratorLoginLabel.Text = "Zaloguj się jako administrator";
             this.administratorLoginLabel.UseVisualStyleBackColor = true;
+            this.administratorLoginLabel.Click += new System.EventHandler(this.administratorLoginLabel_Click);
             // 
             // dateLayoutPanel
             // 
@@ -268,7 +269,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(1257, 690);
-           // this.Controls.Add(this.confirmReservationButton);
+            this.Shown += new System.EventHandler(this.mainApplication_Shown);
+            this.Activated += new System.EventHandler(this.mainApplication_Activated);
+            // this.Controls.Add(this.confirmReservationButton);
             //this.Controls.Add(this.paidCheckBox);
             //this.Controls.Add(this._confirmSeatsLabel);
             //this.Controls.Add(this._confirmMovieLabel);

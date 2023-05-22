@@ -1,5 +1,7 @@
 using Microsoft.VisualBasic.Devices;
+using System.Diagnostics;
 using System.Drawing.Printing;
+using System.Windows.Forms;
 using static System.Reflection.Metadata.BlobBuilder;
 
 namespace SQLServer_LiteDB_WinForms_LearningProject
@@ -37,6 +39,20 @@ namespace SQLServer_LiteDB_WinForms_LearningProject
             this.moviesShowLayoutPanel.Controls.Clear();
 
             List<Screening> screeningListToday = screeningData.getScreeningByDate(DateTime.Parse(dateLabel.Text));
+
+            if(screeningListToday.Count == 0)
+            {
+                var title = new System.Windows.Forms.Label();
+
+                title.Font = new System.Drawing.Font("Roboto Black", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+                title.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+                title.Name = "No data";
+                title.Text = "Brak seansów w ten dzieñ.";
+                title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+                title.Size = new System.Drawing.Size(1257, 540);
+
+                this.moviesShowLayoutPanel.Controls.Add(title);
+            }
 
             foreach (Screening screening in screeningListToday) {
 
@@ -344,6 +360,28 @@ namespace SQLServer_LiteDB_WinForms_LearningProject
             reservationInfo = 0;
             seatsReservedByUser.Clear();
 
+            showMovies();
+        }
+
+        private void administratorLoginLabel_Click(object sender, EventArgs e)
+        {
+            Hide();
+            var LoginPanel = new LoginPanel();
+            LoginPanel.ShowDialog();
+            LoginPanel = null;
+            Activate();
+            Show();
+        }
+
+        private void mainApplication_Shown(object sender, EventArgs e)
+        {
+            dateLabel.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            showMovies();
+        }
+
+        private void mainApplication_Activated(object sender, EventArgs e)
+        {
+            dateLabel.Text = DateTime.Now.ToString("dd/MM/yyyy");
             showMovies();
         }
     }

@@ -46,6 +46,8 @@ namespace SQLServer_LiteDB_WinForms_LearningProject
             {
                 int stop = 1;
 
+                numberOfRows = (numberOfSeats / numberOfSeatsInOneRow) + 1;
+
                 for (int i = 1; i <= numberOfRows; i++)
                 {
                     for (int j = 1; j <= numberOfSeatsInOneRow; j++)

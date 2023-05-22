@@ -40,5 +40,15 @@ namespace SQLServer_LiteDB_WinForms_LearningProject
 
             }
         }
+
+        public static void insertScreening(int movieID, int roomID, DateTime startTime)
+        {
+            using (var connection = new SqlConnection(DatabaseConnectionHelper.connectionString("SQLServer")))
+            {
+
+                connection.Query("dbo.screeningInsert @movie_id, @room_id, @start_time", new { movie_id = movieID, room_id = roomID, start_time = startTime });
+
+            }
+        }
     }
 }

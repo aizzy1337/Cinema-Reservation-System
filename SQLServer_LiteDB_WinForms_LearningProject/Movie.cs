@@ -84,6 +84,22 @@ namespace SQLServer_LiteDB_WinForms_LearningProject
 
             }
         }
+
+        public static void insertMovie(string _title, string _director, string _cast, string _description, int _duration_min, string file)
+        {
+            using (var connection = new SqlConnection(DatabaseConnectionHelper.connectionString("SQLServer")))
+            {
+
+                connection.Query("dbo.movieInsert @title, @director, @cast, @description, @duration_min", new { title = _title, director = _director, cast = _cast, description = _description, duration_min = _duration_min });
+
+            }
+
+            var movies = getAll();
+
+            using (var connection = new LiteDatabase(DatabaseConnectionHelper.connectionString("LiteDB_Pictures")))
+            {
+                connection.FileStorage.Upload(movies.Last().id.ToString(), file);
+            }
+        }
     }
 }
-
