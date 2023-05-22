@@ -90,7 +90,8 @@ namespace SQLServer_LiteDB_WinForms_LearningProject
             using (var connection = new SqlConnection(DatabaseConnectionHelper.connectionString("SQLServer")))
             {
 
-                connection.Query("dbo.movieInsert @title, @director, @cast, @description, @duration_min", new { title = _title, director = _director, cast = _cast, description = _description, duration_min = _duration_min });
+                connection.Query("dbo.movieInsert @title, @director, @cast, @description, @duration_min",
+                    new { title = _title, director = _director, cast = _cast, description = _description, duration_min = _duration_min });
 
             }
 

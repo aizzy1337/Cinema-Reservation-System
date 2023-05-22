@@ -131,6 +131,7 @@ namespace SQLServer_LiteDB_WinForms_LearningProject
         private void dropImagesPanel_DragDrop(object sender, DragEventArgs e)
         {
             files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+            dropImagesPanel.BackColor = Color.Green;
         }
 
         private void loadMovies()
